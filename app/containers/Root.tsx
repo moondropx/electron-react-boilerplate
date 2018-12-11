@@ -1,17 +1,15 @@
-// @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import type { Store } from '../reducers/types';
 import Routes from '../Routes';
 
-type Props = {
-  store: Store,
-  history: {}
-};
+interface Props {
+  store: any;
+  history: any;
+}
 
-export default class Root extends Component<Props> {
-  render() {
+export default class Root extends React.Component<Props> {
+  public render() {
     const { store, history } = this.props;
     return (
       <Provider store={store}>

@@ -1,9 +1,9 @@
 import { spy } from 'sinon';
-import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import { BrowserRouter as Router } from 'react-router-dom';
-import renderer from 'react-test-renderer';
+import * as renderer from 'react-test-renderer';
 import Counter from '../../app/components/Counter';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -15,7 +15,7 @@ function setup() {
     incrementAsync: spy(),
     decrement: spy()
   };
-  const component = shallow(<Counter counter={1} {...actions} />);
+  const component = Enzyme.shallow(<Counter counter={1} {...actions} />);
   return {
     component,
     actions,

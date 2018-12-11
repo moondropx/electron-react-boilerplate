@@ -1,14 +1,13 @@
-// @flow
 import { app, Menu, shell, BrowserWindow } from 'electron';
 
 export default class MenuBuilder {
-  mainWindow: BrowserWindow;
+  private mainWindow: BrowserWindow;
 
   constructor(mainWindow: BrowserWindow) {
     this.mainWindow = mainWindow;
   }
 
-  buildMenu() {
+  public buildMenu() {
     if (
       process.env.NODE_ENV === 'development' ||
       process.env.DEBUG_PROD === 'true'
@@ -16,7 +15,7 @@ export default class MenuBuilder {
       this.setupDevelopmentEnvironment();
     }
 
-    const template =
+    const template: any =
       process.platform === 'darwin'
         ? this.buildDarwinTemplate()
         : this.buildDefaultTemplate();
@@ -27,8 +26,8 @@ export default class MenuBuilder {
     return menu;
   }
 
-  setupDevelopmentEnvironment() {
-    this.mainWindow.openDevTools();
+  public setupDevelopmentEnvironment() {
+    this.mainWindow.webContents.openDevTools();
     this.mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
 
@@ -36,14 +35,14 @@ export default class MenuBuilder {
         {
           label: 'Inspect element',
           click: () => {
-            this.mainWindow.inspectElement(x, y);
+            this.mainWindow.webContents.inspectElement(x, y);
           }
         }
-      ]).popup(this.mainWindow);
+      ]).popup(this.mainWindow as any);
     });
   }
 
-  buildDarwinTemplate() {
+  public buildDarwinTemplate() {
     const subMenuAbout = {
       label: 'Electron',
       submenu: [
@@ -112,7 +111,7 @@ export default class MenuBuilder {
           label: 'Toggle Developer Tools',
           accelerator: 'Alt+Command+I',
           click: () => {
-            this.mainWindow.toggleDevTools();
+            this.mainWindow.webContents.toggleDevTools();
           }
         }
       ]
@@ -180,7 +179,7 @@ export default class MenuBuilder {
     return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
   }
 
-  buildDefaultTemplate() {
+  public buildDefaultTemplate() {
     const templateDefault = [
       {
         label: '&File',
@@ -223,7 +222,7 @@ export default class MenuBuilder {
                   label: 'Toggle &Developer Tools',
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
-                    this.mainWindow.toggleDevTools();
+                    this.mainWindow.webContents.toggleDevTools();
                   }
                 }
               ]
