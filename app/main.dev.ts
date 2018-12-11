@@ -1,5 +1,4 @@
-/* eslint global-require: off */
-
+/* tslint:disable:no-var-requires */
 /**
  * This module executes inside of electron's main process. You can start
  * electron renderer process from here and communicate with the other processes
@@ -23,7 +22,7 @@ export default class AppUpdater {
   }
 }
 
-let mainWindow = null;
+let mainWindow: BrowserWindow | null = null;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -43,7 +42,7 @@ const installExtensions = async () => {
   const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
   return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
+    extensions.map(name => installer.default(installer[name], forceDownload)),
   ).catch(console.log);
 };
 
@@ -70,7 +69,7 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -97,6 +96,6 @@ app.on('ready', async () => {
   menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
+  // tslint:disable-next-line:no-unused-expression
   new AppUpdater();
 });

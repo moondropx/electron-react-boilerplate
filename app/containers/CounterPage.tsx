@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import Counter from '../components/Counter';
 import * as CounterActions from '../actions/counter';
 
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   return {
-    counter: state.counter
+    counter: state.counter,
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(CounterActions, dispatch);
+function mapDispatchToProps(dispatch: any) {
+  return bindActionCreators(CounterActions as any, dispatch);
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Counter);

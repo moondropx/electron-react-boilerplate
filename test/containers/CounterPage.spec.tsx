@@ -1,6 +1,6 @@
-import React from 'react';
-import Enzyme, { mount } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react';
+import * as Enzyme from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router';
@@ -9,7 +9,7 @@ import { configureStore } from '../../app/store/configureStore';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-function setup(initialState) {
+function setup(initialState?: any) {
   const store = configureStore(initialState);
   const history = createBrowserHistory();
   const provider = (
@@ -19,11 +19,11 @@ function setup(initialState) {
       </ConnectedRouter>
     </Provider>
   );
-  const app = mount(provider);
+  const app = Enzyme.mount(provider);
   return {
     app,
     buttons: app.find('button'),
-    p: app.find('.counter')
+    p: app.find('.counter'),
   };
 }
 

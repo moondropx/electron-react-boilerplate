@@ -1,27 +1,24 @@
-// @flow
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './Counter.css';
-import routes from '../constants/routes';
+import * as styles from './Counter.css';
+import * as routes from '../constants/routes.json';
 
-type Props = {
-  increment: () => void,
-  incrementIfOdd: () => void,
-  incrementAsync: () => void,
-  decrement: () => void,
-  counter: number
-};
+interface Props {
+  increment?: () => void;
+  incrementIfOdd?: () => void;
+  incrementAsync?: () => void;
+  decrement?: () => void;
+  counter?: number;
+}
 
-export default class Counter extends Component<Props> {
-  props: Props;
-
-  render() {
+export default class Counter extends React.Component<Props> {
+  public render() {
     const {
       increment,
       incrementIfOdd,
       incrementAsync,
       decrement,
-      counter
+      counter,
     } = this.props;
     return (
       <div>
@@ -60,7 +57,7 @@ export default class Counter extends Component<Props> {
           </button>
           <button
             className={styles.btn}
-            onClick={() => incrementAsync()}
+            onClick={() => incrementAsync && incrementAsync()}
             data-tclass="btn"
             type="button"
           >

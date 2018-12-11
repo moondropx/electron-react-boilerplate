@@ -5,14 +5,14 @@ import { getPageUrl } from './helpers';
 const getPageTitle = ClientFunction(() => document.title);
 const counterSelector = Selector('[data-tid="counter"]');
 const buttonsSelector = Selector('[data-tclass="btn"]');
-const clickToCounterLink = t =>
+const clickToCounterLink = (t: any) =>
   t.click(Selector('a').withExactText('to Counter'));
 const incrementButton = buttonsSelector.nth(0);
 const decrementButton = buttonsSelector.nth(1);
 const oddButton = buttonsSelector.nth(2);
 const asyncButton = buttonsSelector.nth(3);
 const getCounterText = () => counterSelector().innerText;
-const assertNoConsoleErrors = async t => {
+const assertNoConsoleErrors = async (t: any) => {
   const { error } = await t.getBrowserConsoleMessages();
   await t.expect(error).eql([]);
 };
@@ -29,7 +29,7 @@ test('should open window', async t => {
 
 test(
   "should haven't any logs in console of main window",
-  assertNoConsoleErrors
+  assertNoConsoleErrors,
 );
 
 test('should to Counter with click "to Counter" link', async t => {
@@ -44,8 +44,8 @@ test('should navgiate to /counter', async t => {
   await t
     .click(
       ReactSelector('Link').withProps({
-        to: '/counter'
-      })
+        to: '/counter',
+      }),
     )
     .expect(getPageUrl())
     .contains('/counter');
